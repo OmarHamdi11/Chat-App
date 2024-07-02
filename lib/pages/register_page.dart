@@ -13,22 +13,33 @@ class RegisterPage extends StatelessWidget {
       backgroundColor: kPrimaryColor,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: Column(
+        child: ListView(
           children: [
-            const Spacer(
-              flex: 1,
+            const SizedBox(
+              height: 75,
             ),
-            Image.asset('assets/images/scholar.png'),
-            const Text(
-              'Scholar Chat',
-              style: TextStyle(
-                fontSize: 32,
-                color: Colors.white,
-                fontFamily: 'Pacifico',
-              ),
+            Image.asset(
+              'assets/images/scholar.png',
+              height: 100,
             ),
-            const Spacer(
-              flex: 1,
+            const SizedBox(
+              height: 20,
+            ),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Scholar Chat',
+                  style: TextStyle(
+                    fontSize: 32,
+                    color: Colors.white,
+                    fontFamily: 'Pacifico',
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 50,
             ),
             const Row(
               children: [
@@ -82,8 +93,8 @@ class RegisterPage extends StatelessWidget {
                 ),
               ],
             ),
-            const Spacer(
-              flex: 2,
+            const SizedBox(
+              height: 150,
             ),
           ],
         ),
