@@ -10,17 +10,17 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const ChatApp());
+  runApp(const MyApp());
 }
 
-class ChatApp extends StatelessWidget {
-  const ChatApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        'LoginPage': (context) => LoginPage(),
+        'LoginPage': (context) => const LoginPage(),
         RegisterPage.id: (context) => RegisterPage()
       },
       debugShowCheckedModeBanner: false,

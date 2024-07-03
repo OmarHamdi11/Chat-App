@@ -30,7 +30,7 @@ class LoginPage extends StatelessWidget {
               children: [
                 Text(
                   'Scholar Chat',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 32,
                     color: Colors.white,
                     fontFamily: 'Pacifico',
@@ -55,21 +55,21 @@ class LoginPage extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            const CustomTextField(
+            CustomTextField(
               labelText: 'Email',
               hintText: 'Enter your email',
             ),
             const SizedBox(
               height: 10,
             ),
-            const CustomTextField(
+            CustomTextField(
               labelText: 'Password',
               hintText: 'Enter your password',
             ),
             const SizedBox(
               height: 10,
             ),
-            const CustomButton(
+            CustomButton(
               txt: 'LOGIN',
             ),
             const SizedBox(
