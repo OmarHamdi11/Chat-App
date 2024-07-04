@@ -1,5 +1,6 @@
 import 'package:chatapp/constants.dart';
 import 'package:chatapp/helpers/show_snak_bar_message.dart';
+import 'package:chatapp/pages/chat_page.dart';
 import 'package:chatapp/widgets/custom_button.dart';
 import 'package:chatapp/widgets/custom_text_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -102,7 +103,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       setState(() {});
                       try {
                         await registerUser();
-                        showSnakBarMessage(context, 'Done Succesfully');
+                        Navigator.pushNamed(context, ChatPage.id);
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'weak-password') {
                           showSnakBarMessage(context, 'Weak Password');
@@ -116,7 +117,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       }
                       isloading = false;
                       setState(() {});
-                    } else {}
+                    }
                   },
                   txt: 'REGISTER',
                 ),

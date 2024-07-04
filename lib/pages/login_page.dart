@@ -1,5 +1,6 @@
 import 'package:chatapp/constants.dart';
 import 'package:chatapp/helpers/show_snak_bar_message.dart';
+import 'package:chatapp/pages/chat_page.dart';
 import 'package:chatapp/pages/register_page.dart';
 import 'package:chatapp/widgets/custom_button.dart';
 import 'package:chatapp/widgets/custom_text_field.dart';
@@ -9,6 +10,8 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  static String id = 'LoginPage';
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -102,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                       setState(() {});
                       try {
                         await signInUser();
-                        showSnakBarMessage(context, 'Signed in Succesfully');
+                        Navigator.pushNamed(context, ChatPage.id);
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'user-not-found') {
                           showSnakBarMessage(
