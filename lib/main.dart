@@ -3,7 +3,6 @@ import 'package:chatapp/pages/login_page.dart';
 import 'package:chatapp/pages/register_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
 import 'firebase_options.dart';
 
 void main() async {
