@@ -29,7 +29,7 @@ class LoginPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Scholar Chat',
+                  'Tech Chat',
                   style: TextStyle(
                     fontSize: 32,
                     color: Colors.white,
