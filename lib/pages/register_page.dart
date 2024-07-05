@@ -90,6 +90,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   onchange: (data) {
                     password = data;
                   },
+                  obsecure: true,
                   labelText: 'Password',
                   hintText: 'Enter your password',
                 ),
@@ -103,7 +104,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       setState(() {});
                       try {
                         await registerUser();
-                        Navigator.pushNamed(context, ChatPage.id);
+                        Navigator.pushNamed(context, ChatPage.id,
+                            arguments: email);
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'weak-password') {
                           showSnakBarMessage(context, 'Weak Password');

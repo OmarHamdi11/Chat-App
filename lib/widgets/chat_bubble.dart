@@ -30,3 +30,32 @@ class ChatBubble extends StatelessWidget {
     );
   }
 }
+
+class OtherChatBubble extends StatelessWidget {
+  const OtherChatBubble({super.key, required this.message});
+
+  final Message message;
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.centerRight,
+      child: Container(
+        padding:
+            const EdgeInsets.only(left: 16, top: 32, bottom: 32, right: 32),
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
+              topRight: Radius.circular(32),
+              topLeft: Radius.circular(32),
+              bottomLeft: Radius.circular(32)),
+          color: Color.fromARGB(255, 93, 222, 97),
+        ),
+        child: Text(
+          message.message,
+          style: const TextStyle(color: Colors.white),
+        ),
+      ),
+    );
+  }
+}
