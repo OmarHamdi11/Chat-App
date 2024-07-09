@@ -16,6 +16,23 @@ class ChatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var email = ModalRoute.of(context)!.settings.arguments;
+
+    void _sendMessage() {
+      if (controller.text.trim().isNotEmpty) {
+        messages.add({
+          kMessage: controller.text.trim(),
+          kCreatedAt: DateTime.now(),
+          'id': email
+        });
+        controller.clear();
+        listViewController.animateTo(
+          0,
+          duration: Duration(seconds: 1),
+          curve: Curves.fastOutSlowIn,
+        );
+      }
+    }
+
     return StreamBuilder<QuerySnapshot>(
       stream: messages.orderBy(kCreatedAt, descending: true).snapshots(),
       builder: (context, snapshot) {
@@ -48,46 +65,41 @@ class ChatPage extends StatelessWidget {
               children: [
                 Expanded(
                   child: ListView.builder(
-                      reverse: true,
-                      controller: listViewController,
-                      itemCount: messagesList.length,
-                      itemBuilder: (context, index) {
-                        return messagesList[index].id == email
-                            ? ChatBubble(
-                                message: messagesList[index],
-                              )
-                            : OtherChatBubble(message: messagesList[index]);
-                      }),
+                    reverse: true,
+                    controller: listViewController,
+                    itemCount: messagesList.length,
+                    itemBuilder: (context, index) {
+                      return messagesList[index].id == email
+                          ? ChatBubble(
+                              message: messagesList[index],
+                            )
+                          : OtherChatBubble(message: messagesList[index]);
+                    },
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: TextField(
                     controller: controller,
-                    onSubmitted: (value) {
-                      messages.add({
-                        kMessage: value,
-                        kCreatedAt: DateTime.now(),
-                        'id': email
-                      });
-                      controller.clear();
-                      listViewController.animateTo(0,
-                          duration: Duration(seconds: 1),
-                          curve: Curves.fastOutSlowIn);
-                    },
+                    onSubmitted: (value) => _sendMessage(),
                     decoration: InputDecoration(
                       hintText: 'Send Message',
-                      suffixIcon: const Icon(
-                        Icons.send,
-                        color: kPrimaryColor,
+                      suffixIcon: IconButton(
+                        icon: const Icon(
+                          Icons.send,
+                          color: kPrimaryColor,
+                        ),
+                        onPressed: _sendMessage,
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
                       enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                          borderSide: const BorderSide(
-                            color: kPrimaryColor,
-                          )),
+                        borderRadius: BorderRadius.circular(16),
+                        borderSide: const BorderSide(
+                          color: kPrimaryColor,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -97,10 +109,11 @@ class ChatPage extends StatelessWidget {
         } else {
           return const Scaffold(
             body: Center(
-                child: Text(
-              'Loading...',
-              style: TextStyle(color: Colors.white),
-            )),
+              child: Text(
+                'Loading...',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
           );
         }
       },
