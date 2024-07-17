@@ -20,17 +20,19 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<LoginCubit, LoginState>(
+    return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is LoginLoading) {
           isloading = true;
         } else if (state is LoginSuccess) {
-          Navigator.pushNamed(context, ChatPage.id);
+          isloading = false;
+          Navigator.pushNamed(context, ChatPage.id, arguments: email);
         } else if (state is LoginFailure) {
-          showSnakBarMessage(context, 'SomeThing Went Wrong');
+          isloading = false;
+          showSnakBarMessage(context, state.errorMessage);
         }
       },
-      child: ModalProgressHUD(
+      builder: (context, state) => ModalProgressHUD(
         inAsyncCall: isloading,
         child: Scaffold(
           backgroundColor: kPrimaryColor,
@@ -104,25 +106,8 @@ class LoginPage extends StatelessWidget {
                   CustomButton(
                     ontap: () async {
                       if (formKey.currentState!.validate()) {
-                        isloading = true;
-
-                        try {
-                          await signInUser();
-                          Navigator.pushNamed(context, ChatPage.id,
-                              arguments: email);
-                        } on FirebaseAuthException catch (e) {
-                          if (e.code == 'user-not-found') {
-                            showSnakBarMessage(
-                                context, 'No user found for that email.');
-                          } else if (e.code == 'wrong-password') {
-                            showSnakBarMessage(context,
-                                'Wrong password provided for that user.');
-                          }
-                        } catch (e) {
-                          showSnakBarMessage(
-                              context, 'There was an error, try again later');
-                        }
-                        isloading = false;
+                        BlocProvider.of<LoginCubit>(context)
+                            .signInUser(email: email!, password: password!);
                       }
                     },
                     txt: 'LOGIN',
@@ -160,10 +145,10 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Future<void> signInUser() async {
-    final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: email!,
-      password: password!,
-    );
-  }
+  // Future<void> signInUser() async {
+  //   final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+  //     email: email!,
+  //     password: password!,
+  //   );
+  // }
 }

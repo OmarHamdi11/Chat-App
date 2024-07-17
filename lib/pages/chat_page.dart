@@ -27,7 +27,7 @@ class ChatPage extends StatelessWidget {
         controller.clear();
         listViewController.animateTo(
           0,
-          duration: Duration(seconds: 1),
+          duration: const Duration(seconds: 1),
           curve: Curves.fastOutSlowIn,
         );
       }

@@ -2,12 +2,14 @@ import 'package:chatapp/cubits/login_cubit/login_cubit.dart';
 import 'package:chatapp/pages/chat_page.dart';
 import 'package:chatapp/pages/login_page.dart';
 import 'package:chatapp/pages/register_page.dart';
+import 'package:chatapp/simple_bloc_observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'firebase_options.dart';
 
 void main() async {
+  Bloc.observer = SimpleBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

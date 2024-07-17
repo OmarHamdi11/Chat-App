@@ -11,14 +11,19 @@ class LoginCubit extends Cubit<LoginState> {
       {required String email, required String password}) async {
     emit(LoginLoading());
     try {
-      UserCredential user =
-          await FirebaseAuth.instance.signInWithEmailAndPassword(
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
       emit(LoginSuccess());
+      // } on FirebaseAuthException catch (e) {
+      //   if (e.code == 'user-not-found') {
+      //     emit(LoginFailure(errorMessage: '${e.message}'));
+      //   } else if (e.code == 'wrong-password') {
+      //     emit(LoginFailure(errorMessage: '${e.message}'));
+      //   }
     } on Exception catch (e) {
-      emit(LoginFailure());
+      emit(LoginFailure(errorMessage: 'some thing went wrong'));
     }
   }
 }
