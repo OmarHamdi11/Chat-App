@@ -2,13 +2,13 @@ part of 'login_cubit.dart';
 
 sealed class LoginState {}
 
-class LoginInitial extends LoginState {}
+final class LoginInitial extends LoginState {}
 
-class LoginLoading extends LoginState {}
+final class LoginLoading extends LoginState {}
 
-class LoginSuccess extends LoginState {}
+final class LoginSuccess extends LoginState {}
 
-class LoginFailure extends LoginState {
-  String errorMessage;
+final class LoginFailure extends LoginState {
+  final String errorMessage;
   LoginFailure({required this.errorMessage});
 }

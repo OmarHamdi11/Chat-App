@@ -5,7 +5,6 @@ import 'package:chatapp/pages/chat_page.dart';
 import 'package:chatapp/pages/register_page.dart';
 import 'package:chatapp/widgets/custom_button.dart';
 import 'package:chatapp/widgets/custom_text_field.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -20,7 +19,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<LoginCubit, LoginState>(
+    return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is LoginLoading) {
           isloading = true;
@@ -32,7 +31,7 @@ class LoginPage extends StatelessWidget {
           showSnakBarMessage(context, state.errorMessage);
         }
       },
-      builder: (context, state) => ModalProgressHUD(
+      child: ModalProgressHUD(
         inAsyncCall: isloading,
         child: Scaffold(
           backgroundColor: kPrimaryColor,
