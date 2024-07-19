@@ -1,11 +1,11 @@
 import 'package:chatapp/constants.dart';
+import 'package:chatapp/cubits/auth_cubit/auth_cubit.dart';
+import 'package:chatapp/cubits/auth_cubit/auth_state.dart';
 import 'package:chatapp/cubits/chat_cubit/chat_cubit.dart';
-import 'package:chatapp/cubits/register_cubit/register_cubit.dart';
 import 'package:chatapp/helpers/show_snak_bar_message.dart';
 import 'package:chatapp/pages/chat_page.dart';
 import 'package:chatapp/widgets/custom_button.dart';
 import 'package:chatapp/widgets/custom_text_field.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -20,7 +20,7 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<RegisterCubit, RegisterState>(
+    return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is RegisterLoading) {
           isloading = true;
@@ -108,7 +108,7 @@ class RegisterPage extends StatelessWidget {
                     CustomButton(
                       ontap: () async {
                         if (formKey.currentState!.validate()) {
-                          BlocProvider.of<RegisterCubit>(context)
+                          BlocProvider.of<AuthCubit>(context)
                               .registerUser(email: email!, password: password!);
 
                           // isloading = true;
