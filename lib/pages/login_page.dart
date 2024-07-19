@@ -1,4 +1,5 @@
 import 'package:chatapp/constants.dart';
+import 'package:chatapp/cubits/chat_cubit/chat_cubit.dart';
 import 'package:chatapp/cubits/login_cubit/login_cubit.dart';
 import 'package:chatapp/helpers/show_snak_bar_message.dart';
 import 'package:chatapp/pages/chat_page.dart';
@@ -25,6 +26,7 @@ class LoginPage extends StatelessWidget {
           isloading = true;
         } else if (state is LoginSuccess) {
           isloading = false;
+          BlocProvider.of<ChatCubit>(context).getMessage();
           Navigator.pushNamed(context, ChatPage.id, arguments: email);
         } else if (state is LoginFailure) {
           isloading = false;
