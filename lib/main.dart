@@ -1,3 +1,4 @@
+import 'package:chatapp/blocs/auth_bloc/auth_bloc.dart';
 import 'package:chatapp/cubits/auth_cubit/auth_cubit.dart';
 import 'package:chatapp/cubits/chat_cubit/chat_cubit.dart';
 import 'package:chatapp/pages/chat_page.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => AuthCubit()),
         BlocProvider(create: (context) => ChatCubit()),
+        BlocProvider(create: (context) => AuthBloc()),
       ],
       child: MaterialApp(
         routes: {

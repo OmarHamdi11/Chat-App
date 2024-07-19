@@ -1,6 +1,5 @@
+import 'package:chatapp/blocs/auth_bloc/auth_bloc.dart';
 import 'package:chatapp/constants.dart';
-import 'package:chatapp/cubits/auth_cubit/auth_cubit.dart';
-import 'package:chatapp/cubits/auth_cubit/auth_state.dart';
 import 'package:chatapp/cubits/chat_cubit/chat_cubit.dart';
 import 'package:chatapp/helpers/show_snak_bar_message.dart';
 import 'package:chatapp/pages/chat_page.dart';
@@ -20,7 +19,7 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthCubit, AuthState>(
+    return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is RegisterLoading) {
           isloading = true;
@@ -108,28 +107,8 @@ class RegisterPage extends StatelessWidget {
                     CustomButton(
                       ontap: () async {
                         if (formKey.currentState!.validate()) {
-                          BlocProvider.of<AuthCubit>(context)
-                              .registerUser(email: email!, password: password!);
-
-                          // isloading = true;
-                          // setState(() {});
-                          // try {
-                          //   await registerUser();
-                          //   Navigator.pushNamed(context, ChatPage.id,
-                          //       arguments: email);
-                          // } on FirebaseAuthException catch (e) {
-                          //   if (e.code == 'weak-password') {
-                          //     showSnakBarMessage(context, 'Weak Password');
-                          //   } else if (e.code == 'email-already-in-use') {
-                          //     showSnakBarMessage(
-                          //         context, 'This email is already exist');
-                          //   }
-                          // } catch (e) {
-                          //   showSnakBarMessage(
-                          //       context, 'There was an error, try again later');
-                          // }
-                          // isloading = false;
-                          // setState(() {});
+                          BlocProvider.of<AuthBloc>(context).add(RegisterEvent(
+                              email: email!, password: password!));
                         }
                       },
                       txt: 'REGISTER',
